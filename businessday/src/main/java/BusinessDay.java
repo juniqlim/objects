@@ -1,9 +1,9 @@
 import java.time.LocalDate;
 
-public class BusinessDays {
+public class BusinessDay {
     private final LocalDate source;
 
-    public BusinessDays(LocalDate source) {
+    public BusinessDay(LocalDate source) {
         this.source = source;
     }
 
