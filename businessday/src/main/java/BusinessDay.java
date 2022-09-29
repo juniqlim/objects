@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.time.LocalDate;
 
 public class BusinessDay {
@@ -7,7 +8,12 @@ public class BusinessDay {
         this.source = source;
     }
 
-    public LocalDate previousDate() {
-        return null;
+    public LocalDate previousDate() throws IOException {
+        Day day = new Day();
+        LocalDate yesterDay;
+        do {
+            yesterDay = source.minusDays(1);
+        } while (day.isHoliday(yesterDay));
+        return yesterDay;
     }
 }
