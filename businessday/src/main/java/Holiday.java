@@ -30,17 +30,16 @@ public class Holiday {
         this.month = month;
     }
 
-    public List<Integer> holidays() throws IOException {
+    public List<LocalDate> holidays() throws IOException {
         final String OPEN_API = "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo";
         final String OPEN_API_KEY = "=W1V6sQgYWYdbmfmjiOnF%2FJDEkCqEDNUDc1%2B9UbA6yFjK23BVGZ9%2FfEp87o8eGKrjSKoplpIPPVCX76Ns8GHnHQ%3D%3D";
 
-        StringBuilder urlBuilder = new StringBuilder(OPEN_API); /*URL*/
-        urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + OPEN_API_KEY); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + URLEncoder
-            .encode("-", "UTF-8")); /*공공데이터포털에서 받은 인증키*/
-        urlBuilder.append("&" + URLEncoder.encode("solYear", "UTF-8") + "=" + URLEncoder.encode(year, "UTF-8")); /*연*/
-        urlBuilder.append("&" + URLEncoder.encode("solMonth", "UTF-8") + "=" + URLEncoder.encode(month, "UTF-8")); /*월*/
-        URL url = new URL(urlBuilder.toString());
+        String urlBuilder =
+            OPEN_API + "?" + URLEncoder.encode("ServiceKey", "UTF-8") + OPEN_API_KEY /*Service Key*/ + "&"
+                + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + URLEncoder.encode("-", "UTF-8") /*공공데이터포털에서 받은 인증키*/
+                + "&" + URLEncoder.encode("solYear", "UTF-8") + "=" + URLEncoder.encode(year, "UTF-8") /*연*/ + "&"
+                + URLEncoder.encode("solMonth", "UTF-8") + "=" + URLEncoder.encode(month, "UTF-8"); /*월*/
+        URL url = new URL(urlBuilder);
 
         BufferedReader br;
         StringBuilder sb;
@@ -63,13 +62,11 @@ public class Holiday {
         br.close();
         conn.disconnect();
 
-        System.out.println("sb.toString() = " + sb.toString());
-
-        List<Integer> holidays = new ArrayList<>();
+        List<LocalDate> holidays = new ArrayList<>();
         Pattern pattern = Pattern.compile("<locdate>(.*?)</locdate>", Pattern.DOTALL);
         Matcher matcher = pattern.matcher(sb.toString());
         while (matcher.find()) {
-            holidays.add(Integer.parseInt(matcher.group(1).substring(6)));
+            holidays.add(LocalDate.parse(matcher.group(1), DateTimeFormatter.BASIC_ISO_DATE));
         }
 
         return holidays;

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class CachedHoliday {
     private final Holiday holiday;
-    private final List<List<Integer>> cached = new ArrayList<>(1);
+    private final List<List<LocalDate>> cached = new ArrayList<>(1);
 
     public CachedHoliday(LocalDate sourceDate) {
         this.holiday = new Holiday(sourceDate);
@@ -19,7 +19,7 @@ public class CachedHoliday {
         this.holiday = new Holiday(year, month);
     }
 
-    public List<Integer> holidays() throws IOException {
+    public List<LocalDate> holidays() throws IOException {
         if (cached.isEmpty()) {
             cached.add(holiday.holidays());
         }
