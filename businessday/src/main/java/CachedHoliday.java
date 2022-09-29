@@ -25,4 +25,8 @@ public class CachedHoliday {
         }
         return cached.get(0);
     }
+
+    public boolean isHoliday() {
+        return false;
+    }
 }
