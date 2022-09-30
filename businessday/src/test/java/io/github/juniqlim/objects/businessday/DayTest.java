@@ -1,6 +1,5 @@
 package io.github.juniqlim.objects.businessday;
 
-import io.github.juniqlim.objects.businessday.Day;
 import java.io.IOException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

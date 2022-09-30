@@ -1,6 +1,5 @@
 package io.github.juniqlim.objects.businessday;
 
-import io.github.juniqlim.objects.businessday.BusinessDay;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,5 +20,9 @@ public class BusinessDayTest {
         Assertions.assertEquals(
             new BusinessDay(LocalDate.parse("20220913", DateTimeFormatter.BASIC_ISO_DATE)).previousDate(),
             LocalDate.parse("20220908", DateTimeFormatter.BASIC_ISO_DATE));
+
+        Assertions.assertEquals(
+            new BusinessDay(LocalDate.parse("20220930", DateTimeFormatter.BASIC_ISO_DATE)).previousDate(),
+            LocalDate.parse("20220929", DateTimeFormatter.BASIC_ISO_DATE));
     }
 }
