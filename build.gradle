@@ -1,6 +1,6 @@
 allprojects {
     version = "0.0.1"
-    group = 'io.github.juniqlim'
+    group = 'io.juniqlim.objects'
 }
 
 subprojects {
