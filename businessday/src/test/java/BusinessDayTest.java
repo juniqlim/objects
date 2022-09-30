@@ -10,5 +10,13 @@ public class BusinessDayTest {
         Assertions.assertEquals(
             new BusinessDay(LocalDate.parse("20220926", DateTimeFormatter.BASIC_ISO_DATE)).previousDate(),
             LocalDate.parse("20220923", DateTimeFormatter.BASIC_ISO_DATE));
+
+        Assertions.assertEquals(
+            new BusinessDay(LocalDate.parse("20221004", DateTimeFormatter.BASIC_ISO_DATE)).previousDate(),
+            LocalDate.parse("20220930", DateTimeFormatter.BASIC_ISO_DATE));
+
+        Assertions.assertEquals(
+            new BusinessDay(LocalDate.parse("20220913", DateTimeFormatter.BASIC_ISO_DATE)).previousDate(),
+            LocalDate.parse("20220908", DateTimeFormatter.BASIC_ISO_DATE));
     }
 }

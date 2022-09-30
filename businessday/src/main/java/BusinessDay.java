@@ -10,10 +10,10 @@ public class BusinessDay {
 
     public LocalDate previousDate() throws IOException {
         Day day = new Day();
-        LocalDate yesterDay;
-        do {
-            yesterDay = source.minusDays(1);
-        } while (day.isHoliday(yesterDay));
+        LocalDate yesterDay = source.minusDays(1);
+        while (day.isHoliday(yesterDay)) {
+            yesterDay = yesterDay.minusDays(1);
+        }
         return yesterDay;
     }
 }

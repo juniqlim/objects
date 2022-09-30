@@ -12,5 +12,9 @@ public class DayTest {
         Assertions.assertFalse(day.isHoliday("20220913"));
         Assertions.assertTrue(day.isHoliday("20220912")); // 추석 대체휴일
         Assertions.assertTrue(day.isHoliday("20220815")); // 광복절
+        Assertions.assertFalse(day.isHoliday("20211231"));
+        Assertions.assertTrue(day.isHoliday("20211004")); // 개천절 대체
+        Assertions.assertTrue(day.isHoliday("20220101")); // 새해첫날
+        Assertions.assertTrue(day.isHoliday("20220102")); // 주말
     }
 }
