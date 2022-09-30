@@ -1,3 +1,6 @@
+package io.github.juniqlim.objects.businessday;
+
+import io.github.juniqlim.objects.businessday.BusinessDay;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
