@@ -12,14 +12,12 @@ public class CachedComfirmHoliday {
     }
 
     public boolean isHoliday(LocalDate date) throws IOException {
-        String yyyyMM = date.format(DateTimeFormatter.ofPattern("yyyyMM"));
-        List<LocalDate> holidays = cached.get(yyyyMM);
+        String year = date.format(DateTimeFormatter.ofPattern("yyyy"));
+        List<LocalDate> holidays = cached.get(year);
         if (holidays == null) {
-            cached.put(yyyyMM, new Holiday(date).holidays());
+            cached.put(year, new Holiday(date).holidays());
         }
-        return cached.get(yyyyMM).stream()
-            .filter(holiday -> holiday.equals(date))
-            .findFirst()
-            .isPresent();
+        return cached.get(year).stream()
+            .anyMatch(holiday -> holiday.equals(date));
     }
 }

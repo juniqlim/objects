@@ -15,19 +15,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Holiday {
     private final String year;
-    private final String month;
 
     public Holiday(LocalDate source) {
-        this(source.format(DateTimeFormatter.BASIC_ISO_DATE));
+        this(source.format(DateTimeFormatter.BASIC_ISO_DATE).substring(0, 4));
     }
 
-    public Holiday(String yearMonth) {
-        this(yearMonth.substring(0, 4), yearMonth.substring(4, 6));
-    }
-
-    public Holiday(String year, String month) {
+    public Holiday(String year) {
         this.year = year;
-        this.month = month;
     }
 
     public List<LocalDate> holidays() throws IOException {
@@ -36,9 +30,9 @@ public class Holiday {
 
         String urlBuilder =
             OPEN_API + "?" + URLEncoder.encode("ServiceKey", "UTF-8") + OPEN_API_KEY /*Service Key*/ + "&"
+                + URLEncoder.encode("numOfRows", "UTF-8") + "=100&"
                 + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + URLEncoder.encode("-", "UTF-8") /*공공데이터포털에서 받은 인증키*/
-                + "&" + URLEncoder.encode("solYear", "UTF-8") + "=" + URLEncoder.encode(year, "UTF-8") /*연*/ + "&"
-                + URLEncoder.encode("solMonth", "UTF-8") + "=" + URLEncoder.encode(month, "UTF-8"); /*월*/
+                + "&" + URLEncoder.encode("solYear", "UTF-8") + "=" + URLEncoder.encode(year, "UTF-8") /*연*/;
         URL url = new URL(urlBuilder);
 
         BufferedReader br;
