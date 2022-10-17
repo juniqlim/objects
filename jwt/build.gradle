@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'io.juniqlim.objects'
+version '0.0.5'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation 'org.bitbucket.b_c:jose4j:0.9.0'
+}
+
+test {
+    useJUnitPlatform()
+}
