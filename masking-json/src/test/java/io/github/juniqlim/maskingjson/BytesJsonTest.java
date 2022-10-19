@@ -10,4 +10,18 @@ class BytesJsonTest {
         String value = new BytesJson("{\"title\":\"How to train your dragon\"}".getBytes()).valueOfName("title");
         assertEquals(value, "How to train your dragon");
     }
+
+    @Test
+    void test2() {
+        BytesJson bytesJson = new BytesJson("{\"title\":\"How to train your dragon\"}".getBytes());
+        bytesJson.maskValueByName("title", 4);
+        assertEquals(new String(bytesJson.bytes()), "{\"title\":\"****to train your dragon\"}");
+    }
+
+    @Test
+    void test3() {
+        BytesJson bytesJson = new BytesJson("{\"title\":\"How to train your dragon\", \"name\":\"juniq\", \"title\":\"123123\"}".getBytes());
+        bytesJson.maskValueByName("title", 4);
+        assertEquals(new String(bytesJson.bytes()), "{\"title\":\"****to train your dragon\"}");
+    }
 }

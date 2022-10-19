@@ -9,6 +9,10 @@ public class BytesJson {
         this.currentIndex = 0;
     }
 
+    public byte[] bytes() {
+        return bytes;
+    }
+
     public String valueOfName(String name) {
         byte[] findbytes = ("\"" + name + "\"").getBytes();
         do {
@@ -51,5 +55,28 @@ public class BytesJson {
             return true;
         }
         return false;
+    }
+
+    public void maskValueByName(String name, int masklength) {
+        int endIndex;
+        do {
+            endIndex = endIndexOfName(name);
+            for (; currentIndex < endIndex && masklength != 0; currentIndex++, masklength--) {
+                bytes[currentIndex] = '*';
+            }
+        } while (endIndex != -1);
+    }
+
+    private int endIndexOfName(String name) {
+        byte[] findbytes = ("\"" + name + "\"").getBytes();
+        do {
+            int indexOf = new Bytes(bytes).indexOf(findbytes, this.currentIndex);
+            if (indexOf == -1) {
+                return -1;
+            }
+            this.currentIndex = currentIndex + indexOf + findbytes.length;
+        } while (!isStringValueNext());
+
+        return new Bytes(this.bytes).indexOf('"', currentIndex);
     }
 }
