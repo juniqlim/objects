@@ -60,4 +60,12 @@ class BytesTest {
         int next2IndexOf = bytes.indexOf("title".getBytes(), nextIndexOf + 1);
         assertEquals(next2IndexOf, -1);
     }
+
+    @Test
+    void charIndexOfFromIndex() {
+        Bytes bytes = new Bytes(shortJson.getBytes());
+        int indexOf = bytes.indexOf('t', 0);
+        assertEquals(indexOf, 2);
+        assertEquals(shortJson.getBytes()[indexOf], 't');
+    }
 }

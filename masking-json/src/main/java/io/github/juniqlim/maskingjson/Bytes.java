@@ -7,6 +7,17 @@ class Bytes {
         this.bytes = bytes;
     }
 
+    public int indexOf(char target, int fromIndex) {
+        int i = fromIndex;
+        while (i < bytes.length) {
+            if (bytes[i] == target) {
+                return i;
+            }
+            i++;
+        }
+        return -1;
+    }
+
     public int indexOf(byte[] target) {
         int i = 0;
         int j = 0;
