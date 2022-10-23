@@ -5,7 +5,7 @@ import org.jose4j.lang.JoseException;
 
 import java.security.PublicKey;
 
-interface VerifiedJwt {
+public interface VerifiedJwt {
     boolean verifiable();
 
     class VerifiedJws implements VerifiedJwt {
