@@ -6,16 +6,16 @@ import org.jose4j.jwt.JwtClaims;
 import org.jose4j.jwt.NumericDate;
 import org.jose4j.lang.JoseException;
 
-import java.security.Key;
+import java.security.PrivateKey;
 
 public interface Jwt {
     String token();
 
     class Jws implements Jwt {
-        private final Key key;
+        private final PrivateKey privateKey;
 
-        public Jws(Key key) {
-            this.key = key;
+        public Jws(PrivateKey privateKey) {
+            this.privateKey = privateKey;
         }
 
         public String token() {
@@ -25,7 +25,7 @@ public interface Jwt {
             claims.setIssuedAtToNow();
 
             JsonWebSignature jws = new JsonWebSignature();
-            jws.setKey(key);
+            jws.setKey(privateKey);
             jws.setHeader("typ", "JWT");
             jws.setPayload(claims.toJson());
             jws.setAlgorithmHeaderValue(AlgorithmIdentifiers.RSA_USING_SHA512);

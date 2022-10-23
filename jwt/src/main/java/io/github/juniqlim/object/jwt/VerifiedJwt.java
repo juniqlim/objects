@@ -3,6 +3,7 @@ package io.github.juniqlim.object.jwt;
 import org.jose4j.jws.JsonWebSignature;
 import org.jose4j.lang.JoseException;
 
+import java.security.Key;
 import java.security.PublicKey;
 
 public interface VerifiedJwt {
