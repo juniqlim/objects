@@ -1,10 +1,3 @@
-plugins {
-    id 'java'
-}
-
-group 'io.juniqlim.objects'
-version '0.0.5'
-
 repositories {
     mavenCentral()
 }
