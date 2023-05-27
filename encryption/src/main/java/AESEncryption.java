@@ -4,7 +4,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
-class AESEncryption implements Encryption {
+public class AESEncryption implements Encryption {
     private final byte[] secretKey;
     private final byte[] iv;
 

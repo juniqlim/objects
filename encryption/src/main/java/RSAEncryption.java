@@ -4,7 +4,7 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.util.Base64;
 
-class RSAEncryption implements Encryption {
+public class RSAEncryption implements Encryption {
     private final PublicKey publicKey;
     private final PrivateKey privateKey;
 
