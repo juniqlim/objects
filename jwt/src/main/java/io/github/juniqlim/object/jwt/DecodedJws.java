@@ -5,15 +5,15 @@ import org.jose4j.lang.JoseException;
 
 import java.security.PublicKey;
 
-public interface DecodedJwt {
+public interface DecodedJws {
     boolean verifiable();
     String payload();
 
-    class DecodedJws implements DecodedJwt {
+    class DecodedRsaJws implements DecodedJws {
         private final PublicKey publicKey;
         private final String token;
 
-        public DecodedJws(PublicKey publicKey, String token) {
+        public DecodedRsaJws(PublicKey publicKey, String token) {
             this.publicKey = publicKey;
             this.token = token;
         }
@@ -48,7 +48,7 @@ public interface DecodedJwt {
         }
     }
 
-    DecodedJwt FAKE = new DecodedJwt() {
+    DecodedJws FAKE = new DecodedJws() {
         @Override
         public boolean verifiable() {
             return true;

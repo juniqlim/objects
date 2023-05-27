@@ -9,22 +9,19 @@ import org.jose4j.lang.JoseException;
 import java.security.PrivateKey;
 import java.util.Map;
 
-public interface Jwt {
+public interface Jws {
     String token();
+    String token(Map<String, Object> payload);
 
-    class Jws implements Jwt {
+    class RsaJws implements Jws {
         private final PrivateKey privateKey;
 
-        public Jws(PrivateKey privateKey) {
+        public RsaJws(PrivateKey privateKey) {
             this.privateKey = privateKey;
         }
 
         public String token() {
             return jwsString(claims());
-        }
-
-        public String token(Request request) {
-            return jwsString(claims(request));
         }
 
         public String token(Map<String, Object> payload) {
@@ -37,18 +34,10 @@ public interface Jwt {
             return claims;
         }
 
-        private static JwtClaims claims(Request request) {
-            JwtClaims claims = new JwtClaims();
-            claims.setIssuedAtToNow();
-            claims.setExpirationTime(NumericDate.fromSeconds(request.expirationSeconds));
-            request.payload.forEach(claims::setClaim);
-            return claims;
-        }
-
         private static JwtClaims claims() {
             JwtClaims claims = new JwtClaims();
             claims.setIssuedAtToNow();
-            claims.setExpirationTime(NumericDate.fromSeconds(60*60*24*365));
+            claims.setExpirationTime(NumericDate.fromSeconds(60*60*24));
             return claims;
         }
 
@@ -66,17 +55,16 @@ public interface Jwt {
                 throw new RuntimeException(e);
             }
         }
-
-        public static class Request {
-            private final long expirationSeconds;
-            private final Map<String, Object> payload;
-
-            public Request(long expirationSeconds, Map<String, Object> payload) {
-                this.expirationSeconds = expirationSeconds;
-                this.payload = payload;
-            }
-        }
     }
+    Jws FAKE = new Jws() {
+        @Override
+        public String token() {
+            return "FAKE";
+        }
 
-    Jwt FAKE = () -> "fake.token";
+        @Override
+        public String token(Map<String, Object> payload) {
+            return "FAKE";
+        }
+    };
 }
