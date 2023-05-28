@@ -6,37 +6,35 @@ import org.jose4j.lang.JoseException;
 import java.security.PublicKey;
 
 public interface DecodedJws {
-    boolean verifiable();
-    String payload();
+    boolean verifiable(String token);
+    String payload(String token);
 
     class DecodedRsaJws implements DecodedJws {
         private final PublicKey publicKey;
-        private final String token;
 
-        public DecodedRsaJws(PublicKey publicKey, String token) {
+        public DecodedRsaJws(PublicKey publicKey) {
             this.publicKey = publicKey;
-            this.token = token;
         }
 
         @Override
-        public boolean verifiable() {
+        public boolean verifiable(String token) {
             try {
-                return jws().verifySignature();
+                return jws(token).verifySignature();
             } catch (JoseException e) {
                 throw new RuntimeException(e);
             }
         }
 
         @Override
-        public String payload() {
+        public String payload(String token) {
             try {
-                return jws().getPayload();
+                return jws(token).getPayload();
             } catch (JoseException e) {
                 throw new RuntimeException(e);
             }
         }
 
-        private JsonWebSignature jws() {
+        private JsonWebSignature jws(String token) {
             try {
                 JsonWebSignature jws = new JsonWebSignature();
                 jws.setKey(publicKey);
@@ -50,12 +48,12 @@ public interface DecodedJws {
 
     DecodedJws FAKE = new DecodedJws() {
         @Override
-        public boolean verifiable() {
+        public boolean verifiable(String token) {
             return true;
         }
 
         @Override
-        public String payload() {
+        public String payload(String token) {
             return "{\"exp\":31536000,\"jti\":\"24yR3vTibMA4dP5r8TSaDw\",\"iat\":1666185451}";
         }
     };

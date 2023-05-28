@@ -11,7 +11,7 @@ class JwsTest {
     @Test
     void create() {
         String token = new Jws.RsaJws(Fixture.privateKey).token();
-        assertTrue(new DecodedJws.DecodedRsaJws(Fixture.publicKey, token).verifiable());
+        assertTrue(new DecodedJws.DecodedRsaJws(Fixture.publicKey).verifiable(token));
     }
 
     @Test
@@ -25,7 +25,7 @@ class JwsTest {
         );
         assertEquals(
                 "{\"id\":\"1234567890\",\"exp\":86400,\"iat\":1666185451}",
-                new DecodedJws.DecodedRsaJws(Fixture.publicKey, token).payload()
+                new DecodedJws.DecodedRsaJws(Fixture.publicKey).payload(token)
         );
     }
 }
