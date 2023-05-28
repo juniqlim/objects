@@ -1,3 +1,5 @@
+package io.juniqlim.objects.encryption;
+
 import org.junit.jupiter.api.Test;
 
 import java.security.KeyFactory;

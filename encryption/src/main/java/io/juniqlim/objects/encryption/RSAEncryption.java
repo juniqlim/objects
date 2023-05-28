@@ -1,3 +1,5 @@
+package io.juniqlim.objects.encryption;
+
 import javax.crypto.Cipher;
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
